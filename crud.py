@@ -122,8 +122,8 @@ def get_user(db: Session, username: str):
 
 def get_blogs(db: Session, author: str = None):
     if author:
-        return db.query(models.Blog).filter(models.Blog.author_username == author).all()
-    return db.query(models.Blog).all()
+        return db.query(models.Blog).filter(models.Blog.author_username == author).order_by(models.Blog.created_at.desc()).all()
+    return db.query(models.Blog).order_by(models.Blog.created_at.desc()).all()
 
 
 def get_blog_details(db: Session, post_id: int):
@@ -131,7 +131,7 @@ def get_blog_details(db: Session, post_id: int):
     
 
 def get_comments(db: Session, post_id: int):
-    return db.query(models.Comment).filter(models.Comment.post_id == post_id).all()
+    return db.query(models.Comment).filter(models.Comment.post_id == post_id).order_by(models.Comment.created_at.desc()).all()
 
 
 def edit_blog(

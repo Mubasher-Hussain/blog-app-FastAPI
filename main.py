@@ -35,25 +35,26 @@ def get_db():
 
 
 @app.get("/blogs/api/post_list/", response_model=List[schemas.Blog])
-def read_items(db: Session = Depends(get_db)):
+def get_blogs(db: Session = Depends(get_db)):
     blogs = crud.get_blogs(db)
+    print(blogs[0].created_at)
     return blogs
 
 
 @app.get("/blogs/api/post_list/{author}", response_model=List[schemas.Blog])
-def read_items(author: str,  db: Session = Depends(get_db)):
+def get_blogs(author: str,  db: Session = Depends(get_db)):
     blogs = crud.get_blogs(db, author)
     return blogs
 
 
 @app.get("/blogs/api/comment_detail/{post_id}", response_model=List[schemas.Comment])
-def read_items(post_id: int,  db: Session = Depends(get_db)):
+def get_comments(post_id: int,  db: Session = Depends(get_db)):
     comments = crud.get_comments(db, post_id)
     return comments
 
 
 @app.get("/blogs/api/post_detail/{post_id}", response_model=schemas.Blog)
-def read_items(post_id: int,  db: Session = Depends(get_db)):
+def get_blog_details(post_id: int,  db: Session = Depends(get_db)):
     blog = crud.get_blog_details(db, post_id)
     return blog
 

@@ -1,6 +1,6 @@
 from typing import List, Optional
 from pydantic import BaseModel
-
+import datetime
 
 class CommentBase(BaseModel):
     content:str
@@ -14,6 +14,7 @@ class Comment(CommentBase):
     id: int
     commentator_username: str
     post_id: int
+    created_at: datetime.datetime
 
     class Config:
         orm_mode = True
@@ -31,6 +32,8 @@ class BlogCreate(BlogBase):
 class Blog(BlogBase):
     id: int
     author_username: str
+    created_at: datetime.datetime
+    modified_at: Optional[datetime.datetime] = None 
 
     class Config:
         orm_mode = True
